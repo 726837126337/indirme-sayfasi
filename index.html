@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Uygulama İndir</title>
+
+<style>
+body {
+  margin: 0;
+  background: #000;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  text-align: center;
+}
+
+.container { padding: 20px; }
+
+.app-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.app-name {
+  font-size: 22px;
+  margin: 15px 0 25px;
+}
+
+button {
+  background: #1e88e5;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* POPUP */
+.popup-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+.popup input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.popup-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttons button {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiGtCA92EfLHi3vl6hMgTR2-zn5eJxOwzJHK8FYN2J_kbh0f27xSdsEw27bI-HWp1HXROepyFzW1rQ4LVPSVBC6Al-_EcBKQicd4fuWWgrHomjoU8jDNG42TPmglVgfpNpB7IlMDThIwwW4EdPsNmvp_JGP7wbksifb6pOsCxvdqYQgG8zXi6s41ForF8/s320/1000921503.png" class="app-icon">
+  <div class="app-name">Vardiya</div>
+  <button onclick="sorIndirme()">Uygulamayı İndir</button>
+</div>
+
+<!-- Popup Alanı -->
+<div class="popup-bg" id="popupBg">
+  <div class="popup" id="popupBox"></div>
+</div>
+
+<script>
+const popupBg = document.getElementById("popupBg");
+const popupBox = document.getElementById("popupBox");
+
+function kapatPopup() {
+  popupBg.style.display = "none";
+}
+
+function gosterMesaj(mesaj) {
+  popupBox.innerHTML = `
+    <div>${mesaj}</div>
+    <div class="popup-buttons">
+      <button onclick="kapatPopup()">Tamam</button>
+    </div>`;
+  popupBg.style.display = "flex";
+}
+
+function sorIndirme() {
+  popupBox.innerHTML = `
+    <div>Dosya indirilsin mi?</div>
+    <div class="popup-buttons">
+      <button onclick="sifreSor()">Evet</button>
+      <button onclick="kapatPopup()">Hayır</button>
+    </div>`;
+  popupBg.style.display = "flex";
+}
+
+function sifreSor() {
+  popupBox.innerHTML = `
+    <div>Şifreyi girin</div>
+    <input type="password" id="sifreInput" placeholder="Şifre">
+    <div class="popup-buttons">
+      <button onclick="kontrolEt()">Onayla</button>
+      <button onclick="kapatPopup()">İptal</button>
+    </div>`;
+}
+
+function kontrolEt() {
+  const sifre = document.getElementById("sifreInput").value;
+
+  if (sifre === "1453") {  // 🔐 Şifre
+    kapatPopup();
+    window.location.href = "app.apk"; // APK yolu
+  } else {
+    gosterMesaj("Şifre yanlış!");
+  }
+}
+</script>
+
+</body>
+</html>
